@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aduana de Chile</title>
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ZvpUoO/+Pp8eLmGo5eqzVf5F5g5GA5z8vB5D9L5Q5o5v5b6zP5K5a5z5l5g5Z5g" crossorigin="anonymous">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="bg-primary text-white p-3">
+        <h1 class="text-center">Aduana de Chile</h1>
+    </header>
+
+    <main class="container my-5 d-flex justify-content-center">
+        <section id="registroDatos" class="w-100">
+            <h2 class="mb-4 text-center">Registro de Empresas e Importaciones</h2>
+
+            <div id="formRegistro" class="row">
+                <div class="col-md-6 mb-4" id="formRegistroEmpresa">
+                    <h3 class="text-center">Registro de Empresas</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="nombreEmpresa" class="form-label">Nombre Empresa:</label>
+                            <input type="text" name="nombreEmpresa" id="nombreEmpresa" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rutEmpresa" class="form-label">Rut Empresa:</label>
+                            <input type="text" name="rutEmpresa" id="rutEmpresa" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary d-block mx-auto">Registrar Empresa</button>
+                    </form>
+                </div>
+
+                <div class="col-md-6" id="formRegistroImportacion">
+                    <h3 class="text-center">Registro de Importaciones</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="nombreEmpresaRegistrada" class="form-label">Nombre Empresa:</label>
+                            <input type="text" name="nombreEmpresaRegistrada" id="nombreEmpresaRegistrada" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombreProducto" class="form-label">Nombre Producto:</label>
+                            <input type="text" name="nombreProducto" id="nombreProducto" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidadProductos" class="form-label">Cantidad de Productos:</label>
+                            <input type="number" name="cantidadProductos" id="cantidadProductos" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="precioUnitario" class="form-label">Precio Unitario:</label>
+                            <input type="number" name="precioUnitario" id="precioUnitario" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rubroImportacion" class="form-label">Rubro de Importación:</label>
+                            <input type="text" name="rubroImportacion" id="rubroImportacion" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tamanioImportador" class="form-label">Tamaño de Importador:</label>
+                            <select name="tamanioImportador" id="tamanioImportador" class="form-select">
+                                <option value="pequenio">Pequeño</option>
+                                <option value="mediano">Mediano</option>
+                                <option value="grande">Grande</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary d-block mx-auto">Registrar Importaciones</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="mostrarResultados" class="w-100">
+            <h2 class="mb-4 text-center">Resultados:</h2>
+
+            <div id="contenedorEmpresas" class="mb-5">
+                <h3 class="text-center">Empresas</h3>
+                <table id="empresasLista" class="table table-striped mx-auto">
+                    <thead>
+                        <tr>
+                            <th>Nombre Empresa</th>
+                            <th>Rut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Contenido dinámico -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="contenedorImportaciones">
+                <h3 class="text-center">Importaciones</h3>
+                <table id="importacionesLista" class="table table-striped mx-auto">
+                    <thead>
+                        <tr>
+                            <th>Nombre Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Rubro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Contenido dinámico -->
+                    </tbody>
+                </table>
+
+                <div id="filtrarDatos" class="mt-4">
+                    <div id="filtrarPorEmpresa" class="d-flex justify-content-center">
+                        <input type="text" name="filtrarPorNombreEmpresa" id="filtrarPorNombreEmpresa" class="form-control w-50" placeholder="Nombre de Empresa">
+                        <button id="mostrarImportacionesPorEmpresaBtn" class="btn btn-info ms-2">Mostrar Importaciones por Empresa</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-light text-center p-3">
+        <p>Sala 7 (2024) | Nelson Camus - Patricio Gallardo - Mauricio López - Cristian Blanco</p>
+    </footer>
+
+    <!-- Bootstrap JS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-GLhlTQ8iRABRzDpmR7en5+M3p1Cw3AYQ2z2lmvZ4I1bA1zO7jD1vdr5Fi2DkQbG" crossorigin="anonymous"></script>
+
+    <!-- Tu script personalizado -->
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
