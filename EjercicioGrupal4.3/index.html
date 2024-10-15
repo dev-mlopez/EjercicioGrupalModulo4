@@ -3,9 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio Grupal 4.3</title>
+    <title>Aduana de Chile</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <h1>Ejercicio Grupal 4.3</h1>
+    <header>
+        <h1>Aduana de Chile</h1>
+    </header>
+    <main>
+        <section id="registroDatos">
+            <h2>Registro de Empresas e Importaciones</h2>
+            <div id="formRegistro">
+                <div action="" id="formRegistroEmpresa">
+                    <h3>Registro de Empresas</h3>
+                    <ul>
+                        <li>
+                            <label for="nombreEmpresa">Nombre Empresa:</label>
+                            <input type="text" name="nombreEmpresa" id="nombreEmpresa">
+                        </li>
+                        <li>
+                            <label for="rutEmpresa">Rut Empresa:</label>
+                            <input type="text" name="rutEmpresa" id="rutEmpresa">
+                        </li>
+                    </ul>
+                    <button id="agregar-empresa-btn">Registrar Empresa</button>
+                </div>
+                <div action="" id="formRegistroImportacion">
+                    <h3>Registro de Importaciones</h3>
+                    <ul>
+                        <li>
+                            <label for="nombreEmpresaRegistrada">Nombre Empresa:</label>
+                            <input type="text" name="nombreEmpresaRegistrada" id="nombreEmpresaRegistrada">
+                        </li>
+                        <li>
+                            <label for="nombreProducto">Nombre Producto:</label>
+                            <input type="text" name="nombreProducto" id="nombreProducto">
+                        </li>
+                        <li>
+                            <label for="cantidadProductos">Cantidad de Productos:</label>
+                            <input type="number" name="cantidadProductos" id="cantidadProductos">
+                        </li>
+                        <li>
+                            <label for="precioUnitario">Precio Unitario:</label>
+                            <input type="number" name="precioUnitario" id="precioUnitario">
+                        </li>
+                        <li>
+                            <label for="rubroImportacion">Rubro de Importacion:</label>
+                            <input type="text" name="rubroImportacion" id="rubroImportacion">
+                        </li>
+                        <li>
+                            <label for="tamanioImportador">Tamaño de Importador:</label>
+                            <select name="tamanioImportador" id="tamanioImportador">
+                                <option value="pequenio">Pequeño</option>
+                                <option value="mediano">Mediano</option>
+                                <option value="grande">Grande</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <button id="agregar-importacion-btn">Registrar Importaciones</button>
+                </div>
+            </div>
+        </section>
+        <section id="mostrarResultados">
+            <h2>Resultados:</h2>
+            <div id="contenedorEmpresas">
+                <h3>Empresas</h3>
+                <table id="empresasLista">
+                </table>
+            </div>
+            <div id="contenedorImportaciones">
+                <h3>Importaciones</h3>
+                <table id="importacionesLista">
+                </table>
+                <div id="filtrarDatos">
+                    <div id="filtrarPorEmpresa">
+                        <input type="text" name="filtrarPorNombreEmpresa" id="filtrarPorNombreEmpresa" placeholder="Nombre de Empresa">
+                        <button id="mostrarImportacionesPorEmpresaBtn">Mostrar Importaciones por Empresa</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Sala 7 (2024) | Nelson Camus - Patricio Gallardo - Mauricio López - Cristian Blanco</p>
+    </footer>
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
