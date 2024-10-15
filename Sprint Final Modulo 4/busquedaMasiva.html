@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Final Modulo 4</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Sprint Final Modulo 4</h1>
+    </header>
+    <nav id="nav">
+        <ul>
+            <li><a href="busquedaPorFiltro.html">Buscar por Filtro</a></li>
+        </ul>
+    </nav>
+    <main id="main">
+        <section id="contenedorOpcion">
+            <button id="btnCargar" class="btn" type="button">Cargar</button>
+            <button id="btnCargarMas" class="btn is-active" type="button">Cargar Más</button>
+            <button id="btnBorrarTodo" class="btn is-active" type="button">Borrar todo</button>
+        </section>
+        <section id="listadoPokemon">
+        </section>
+    </main>
+    <div id="infoPokemon" class="is-active">
+        <p id="infoNombrePokemon"></p>
+        <canvas id="myChart"></canvas>
+    </div>
+    <footer id="footer">
+        <p>Estudiante: Mauricio López</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="assets/js/mainBusquedaMasiva.js"></script>
+    <script type="module" src="assets/js/DOM/graficoDinamico.js"></script>
+</body>
+</html>
