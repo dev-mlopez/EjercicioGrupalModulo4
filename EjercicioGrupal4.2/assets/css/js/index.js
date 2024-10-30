@@ -3,29 +3,29 @@ import Empresa from "./empresa.js"
 
 const d = document;
 
-let empresasDefecto = [
+const empresas = [],
+    importaciones = [],
+    infoEmpresas = new Map(),
+    rutEmpresas = new Set();
+
+const empresasDefecto = [
         {
-            idRegistro: 0,
             nombre: "Lider",
             rut: "202"
         },
         {
-            idRegistro: 1,
             nombre: "Tottus",
             rut: "20-4"
         },
         {
-            idRegistro: 2,
             nombre: "Santa Isabel",
             rut: "903-6"
         },
         {
-            idRegistro: 3,
             nombre: "Jumbo",
             rut: "145-3"
         },
         {
-            idRegistro: 4,
             nombre: "Mercado Libre",
             rut: "248"
         },
@@ -61,29 +61,9 @@ let empresasDefecto = [
             numeroProductos: 7,
             precioUnitario: 300000
         },
-    ],
-    empresas = [],
-    importaciones = [];
+    ];
 
-function agregarEmpresa(empresa) {
-    empresas.push(empresa);
-    mostrarEmpresas();
-}
-
-function buscarEmpresaPorNombre(nombre) {
-    return empresas.find(empresa => empresa.nombre === nombre);
-}
-
-function agregarImportacion(nombreEmpresa, importacion) {
-    importaciones.push({nombreEmpresa, importacion});
-    let empresa = buscarEmpresaPorNombre(nombreEmpresa)
-    empresa.registrarImportacion(importacion);
-    // console.log(empresa)
-    mostrarImportaciones();
-}
-
-// DOM
-function mostrarEmpresas() {
+const mostrarEmpresas = () => {
     const listaEmpresas = d.getElementById("empresasLista");
     listaEmpresas.innerHTML = '';
     const cabeceraTabla = d.createElement("tr");
@@ -104,7 +84,7 @@ function mostrarEmpresas() {
     }))
 }
 
-function mostrarImportaciones() {
+const mostrarImportaciones = () => {
     const listaImportaciones = d.getElementById("importacionesLista");
     listaImportaciones.innerHTML = "";
     const cabeceraTabla = d.createElement("tr");
@@ -129,89 +109,69 @@ function mostrarImportaciones() {
     })
 }
 
-function registrarEmpresa() {
-    const nombreEmpresa = d.getElementById("nombreEmpresa").value,
-        rutEmpresa = d.getElementById("rutEmpresa").value;
+const consultarRut = rut => 
+    rutEmpresas.has(rut);
 
-    const empresa = new Empresa(nombreEmpresa, rutEmpresa);
-    agregarEmpresa(empresa);
+const verificarEmpresa = (nombre, rut) => 
+    consultarRut(rut)
+        ? alert(`El rut ${rut} ya existe, no se puede volver a registrar una Empresa con este rut`)
+        : agregarEmpresa(new Empresa(nombre, rut));
+
+const agregarEmpresa = empresa => {
+    rutEmpresas.add(empresa.getRut());
+    empresas.push(empresa);
+    infoEmpresas.set(empresa.getRut(), empresa.getIdRegistro());
+    mostrarEmpresas();
 }
 
-function registrarImportacion() {
-    const nombreEmpresaRegistrada = d.getElementById("nombreEmpresaRegistrada").value,
-        nombreProducto = d.getElementById("nombreProducto").value,
-        numeroProductos = d.getElementById("cantidadProductos").value,
-        precioUnitario = d.getElementById("precioUnitario").value;
+const buscarEmpresaPorNombre = (nombre) => empresas.find(empresa => empresa.nombre === nombre);
 
-    const empresa = buscarEmpresaPorNombre(nombreEmpresaRegistrada);
-    if(empresa) {
-        const importacion = new Importacion(nombreProducto, numeroProductos, precioUnitario);
-        agregarImportacion(nombreEmpresaRegistrada, importacion);
-    } else {
-        alert(`La empresa ${nombreEmpresaRegistrada} no existe.`)
-    }
+const verificarImportacion = (nombreEmpresa, nombreProducto, numeroProductos, precioUnitario) =>
+    buscarEmpresaPorNombre(nombreEmpresa)
+        ? agregarImportacion(nombreEmpresa, new Importacion(nombreProducto, numeroProductos, precioUnitario))
+        : alert(`La empresa ${nombreEmpresa} no existe.`);
+
+const agregarImportacion = (nombreEmpresa, importacion) => {
+    importaciones.push({nombreEmpresa, importacion});
+    let empresa = buscarEmpresaPorNombre(nombreEmpresa)
+    empresa.registrarImportacion(importacion);
+    mostrarImportaciones();
 }
 
-d.getElementById("agregar-empresa-btn").addEventListener("click", () => {
-    registrarEmpresa();
-})
+const obtenerNombreEmpresa = (empresa, nombreEmpresa) =>
+    empresa 
+        ? empresa.mostrarImportaciones()
+        : alert(`La empresa ${nombreEmpresa} no existe`);
 
-d.getElementById("agregar-importacion-btn").addEventListener("click", () => {
-    registrarImportacion();
-})
-
-d.getElementById("mostrarImportacionesPorEmpresaBtn").addEventListener("click", () => {
-    obtenerNombreEmpresa();
-})
-
-empresasDefecto.forEach((empresa) => {
-    const nuevaEmpresa = new Empresa(empresa.nombre, empresa.rut)
-    agregarEmpresa(nuevaEmpresa);
+empresasDefecto.forEach(empresa => {
+    verificarEmpresa(empresa.nombre, empresa.rut);
 })
 
 importacionesDefecto.forEach((importacion) => {
-    const nuevaImportacion = new Importacion(importacion.producto, importacion.numeroProductos, importacion.precioUnitario);
-    agregarImportacion(importacion.nombreEmpresa, nuevaImportacion);
+    agregarImportacion(
+        importacion.nombreEmpresa, 
+        new Importacion(
+            importacion.producto, 
+            importacion.numeroProductos, 
+            importacion.precioUnitario
+        ));
 })
 
-function obtenerNombreEmpresa() {
-    const nombreEmpresa = d.getElementById("filtrarPorNombreEmpresa").value;
-    let empresa = buscarEmpresaPorNombre(nombreEmpresa);
+d.getElementById("agregar-empresa-btn").addEventListener("click", () => {
+    verificarEmpresa(
+        d.getElementById("nombreEmpresa").value, 
+        d.getElementById("rutEmpresa").value);
+})
 
-    if(empresa) {
-        mostrarImportacionesPorEmpresa(empresa)
-    } else {
-        alert(`La empresa ${nombreEmpresa} no existe`);
-    }
-}
+d.getElementById("agregar-importacion-btn").addEventListener("click", () => {
+    verificarImportacion(
+        d.getElementById("nombreEmpresaRegistrada").value, 
+        d.getElementById("nombreProducto").value, 
+        d.getElementById("cantidadProductos").value, 
+        d.getElementById("precioUnitario").value);
+})
 
-function mostrarImportacionesPorEmpresa(empresa) {
-    const listaImportacionesPorEmpresa = d.getElementById("importacionesLista");
-    listaImportacionesPorEmpresa.innerHTML = "";
-    const cabeceraTabla = d.createElement("tr");
-    cabeceraTabla.innerHTML = `
-        <th>Empresa</th>
-        <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Valor por Unidad</th>
-        <th>Valor por Cantidad</th>
-    `
-    listaImportacionesPorEmpresa.appendChild(cabeceraTabla);
-    empresa.importaciones.forEach((importacion) => {
-        const datosImportacion = d.createElement("tr");
-        datosImportacion.innerHTML = `
-            <td>${empresa.getNombre()}</td>
-            <td>${importacion.producto}</td>
-            <td>${importacion.numeroProductos}</td>
-            <td>$${importacion.precioUnitario}</td>
-            <td>${importacion.obtenerCostoTotal()}</td>
-        `
-        listaImportacionesPorEmpresa.appendChild(datosImportacion);
-    })
-    const pieTabla = d.createElement("tr");
-    pieTabla.innerHTML = `
-        <th colspan="4">Total</th>
-        <td>$${empresa.obtenerTotalImportaciones()}</td>
-    `
-    listaImportacionesPorEmpresa.appendChild(pieTabla)
-}
+d.getElementById("mostrarImportacionesPorEmpresaBtn").addEventListener("click", () => {
+    obtenerNombreEmpresa(
+        buscarEmpresaPorNombre(d.getElementById("filtrarPorNombreEmpresa").value), d.getElementById("filtrarPorNombreEmpresa").value);
+})
