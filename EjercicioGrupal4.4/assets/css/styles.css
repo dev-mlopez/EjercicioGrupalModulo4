@@ -1,0 +1,160 @@
+:root {
+    --primary-color: #134074;
+    --secondary-color: #13315C;
+    --third-color: #8DA9C4;
+
+    --black-color: #0B2545;
+    --white-color: #EEF4ED;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--secondary-color);
+    text-align: center;
+}
+
+header h1 {
+    padding-block: .25rem;
+}
+
+main section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+main section form {
+    width: 80%;
+    max-width: 500px;
+    margin: 1rem auto;
+    background-color: var(--third-color);
+    border-radius: .5rem;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: .5rem;
+}
+
+#contenedorInput {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: .5rem;
+    width: 90%;
+}
+
+#contenedorInput input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--secondary-color);
+    text-align: center;
+    color: var(--black-color);
+    transition: all .2s;
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+#contenedorInput input::placeholder {
+    color: var(--primary-color);
+}
+
+#contenedorInput input:focus,
+#contenedorInput input:hover {
+    color: var(--white-color);
+}
+
+#btnEnviar {
+    width: 50%;
+    max-width: 300px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 1rem;
+    cursor: pointer;
+    color: var(--white-color);
+    padding-block: .25rem;
+    transition: all .2s;
+}
+
+#btnEnviar:hover {
+    background-color: var(--third-color);
+    color: var(--black-color);
+}
+
+.infoClima {
+    width: 80%;
+    max-width: 500px;
+    background-color: var(--secondary-color);
+    border-radius: 1rem;
+    padding: .5rem 1rem;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+.noVisible {
+    display: none;
+    
+}
+
+#infoClimaTitulo {
+    text-align: center;
+}
+
+#infoClimaTemperatura {
+    display: flex;
+}
+
+#temperaturaActual {
+    font-size: 2rem;
+    border-right: 1px solid var(--third-color);
+    padding-inline: .5rem;
+    align-self: center;
+}
+
+#temperaturaMaxMin {
+    padding-inline: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+#infoClimaDescripcion {
+    padding-inline: .5rem;
+}
+
+#infoClimaOtros {
+    list-style-type: none;
+}
+
+#infoClimaOtros li {
+    display: flex;
+    justify-content: space-between;
+    padding-block: .25rem;
+    border-bottom: 1px solid var(--third-color);
+}
+
+#infoClimaOtros li:last-of-type {
+    border: none;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--secondary-color);
+    padding-block: .5rem;
+    text-align: center;
+    width: 100%;
+}
